@@ -1,8 +1,9 @@
 import connection from '../models/connection';
+
 import ProductsModel from '../models/productsModel';
 import { Product } from '../interfaces/index';
 
-class BookService {
+export default class ProductService {
   public model: ProductsModel;
 
   constructor() {
@@ -10,8 +11,7 @@ class BookService {
   }
 
   public create(product: Product): Promise<Product> {
-    return this.model.create(product);
+    const productCreated = this.model.create(product);
+    return productCreated;
   }
 }
-
-export default BookService;
