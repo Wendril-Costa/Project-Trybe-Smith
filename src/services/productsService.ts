@@ -1,7 +1,7 @@
 import connection from '../models/connection';
 
 import ProductsModel from '../models/productsModel';
-import { Product } from '../interfaces/index';
+import Product from '../interfaces/Product';
 
 export default class ProductService {
   public model: ProductsModel;
