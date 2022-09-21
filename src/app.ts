@@ -9,5 +9,6 @@ const app = express();
 app.use(express.json());
 
 app.post('/products', productsController.create);
+app.get('/products', productsController.getAll);
 
 export default app;
