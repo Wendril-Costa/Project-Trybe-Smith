@@ -1,28 +1,24 @@
-import { Pool, ResultSetHeader } from 'mysql2/promise';
+import { ResultSetHeader } from 'mysql2/promise';
 import Product from '../interfaces/Product';
+import connection from './connection';
 
-export default class ProductsModel {
-  public connection: Pool;
-
-  constructor(connection: Pool) {
-    this.connection = connection;
-  }
-
-  public async create(book: Product): Promise<Product> {
-    const { name, amount } = book;
-    const result = await this.connection.execute<ResultSetHeader>(
+const productModel = {
+  create: async (product: Product): Promise<Product> => {
+    const { name, amount } = product;
+    const result = await connection.execute<ResultSetHeader>(
       'INSERT INTO Trybesmith.Products (name, amount) VALUES (?, ?)',
       [name, amount],
     );
     const [dataInserted] = result;
     const { insertId } = dataInserted;
-    return { id: insertId, ...book };
-  }
+    return { id: insertId, ...product };
+  },
 
-  public async getAll(): Promise<Product[]> {
-    const result = await this.connection
-      .execute('SELECT * FROM Trybesmith.Products');
+  getAll: async (): Promise<Product[]> => {
+    const result = await connection.execute('SELECT * FROM Trybesmith.Products');
     const [rows] = result;
     return rows as Product[];
-  }
-}
+  },
+};
+
+export default productModel;

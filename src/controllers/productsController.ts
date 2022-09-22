@@ -1,21 +1,20 @@
 import { Request, Response } from 'express';
 
 import { StatusCodes } from 'http-status-codes';
+import productService from '../services/productsService';
 
-import ProductService from '../services/productsService';
-
-export default class ProductsController {
-  constructor(private productService = new ProductService()) { }
-
-  public create = async (req: Request, res: Response) => {
+const productController = {
+  create: async (req: Request, res: Response) => {
     const product = req.body;
     
-    const productCreated = await this.productService.create(product);
-    res.status(StatusCodes.CREATED).json(productCreated);
-  };
+    const productCreated = await productService.create(product);
+    return res.status(StatusCodes.CREATED).json(productCreated);
+  },
 
-  public getAll = async (_req: Request, res: Response) => {
-    const products = await this.productService.getAll();
-    res.status(StatusCodes.OK).json(products);
-  };
-}
+  getAll: async (_req: Request, res: Response) => {
+    const products = await productService.getAll();
+    return res.status(StatusCodes.OK).json(products);
+  },
+};
+
+export default productController;
