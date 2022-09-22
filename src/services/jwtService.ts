@@ -5,7 +5,7 @@ import User from '../interfaces/User';
 const SECRET = 'senhaincrivel';
 
 const jwtService = {
-  generateToken: (payload: User) => {
+  generateToken: (payload: User): string => {
     const token = sign(payload, SECRET, {
       expiresIn: '3d',
       algorithm: 'HS256',
