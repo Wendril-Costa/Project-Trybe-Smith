@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 
 import { StatusCodes } from 'http-status-codes';
-import loginService from '../services/orderService';
+import loginService from '../services/loginService';
 
 const loginController = {
   login: async (req: Request, res: Response) => {
