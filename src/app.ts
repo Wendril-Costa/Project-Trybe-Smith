@@ -2,6 +2,7 @@ import express from 'express';
 
 import productsController from './controllers/productsController';
 import userController from './controllers/userController';
+import orderController from './controllers/orderController';
 
 const app = express();
 
