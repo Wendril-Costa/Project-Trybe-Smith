@@ -1,18 +1,20 @@
-import { Request, Response } from 'express';
-import { StatusCodes } from 'http-status-codes';
 import Login from '../interfaces/Login';
+import userModel from '../models/usersModel';
 
-import loginModel from '../models/loginModel';
-import jwtService from './jwtService';
+// import loginModel from '../models/loginModel';
+// import jwtService from './jwtService';
 
 const loginService = {
-  login: async (_req: Request, res: Response, login: Login) => {
-    const loginData = await loginModel.login(login);
-    if (!loginData || loginData.password !== login.password) {
-      return res.status(StatusCodes.UNAUTHORIZED).json({ message: 'Username or password invalid' });
+  login: async ({ username, password }: Login) => {
+    if (!username || !password) {
+      return { code: 400, message: 'Some required fields are missing' };
     }
-    const token = jwtService.generateToken(loginData);
-    return { token };
+    const loginData = await userModel.getByUsername(username);
+    if (!loginData || loginData.password !== password) {
+      return { message: 'Username or password invalid' };
+    }
+    // const token = jwtService.generateToken(loginData);
+    return { token: 'fake token' };
   },
 
 };

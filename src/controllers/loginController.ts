@@ -1,14 +1,17 @@
 import { Request, Response } from 'express';
-
 import { StatusCodes } from 'http-status-codes';
+import Login from '../interfaces/Login';
 import loginService from '../services/loginService';
 
 const loginController = {
   login: async (req: Request, res: Response) => {
-    const userCredentials = req.body;
-    const login = await loginService.login(userCredentials);
+    const { username, password } = req.body as Login;
+
+    const { message, token } = await loginService.login({ username, password });
   
-    return res.status(StatusCodes.OK).json(login);
+    if (message) return res.status(StatusCodes.UNAUTHORIZED).json({ message });
+
+    return res.status(StatusCodes.OK).json({ token });
   },
 };  
 
