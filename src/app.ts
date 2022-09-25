@@ -4,7 +4,7 @@ import productsController from './controllers/productsController';
 import userController from './controllers/userController';
 import orderController from './controllers/orderController';
 import loginController from './controllers/loginController';
-import validateLogin from './controllers/validateLogin';
+import validateLogin from './middlewares/validateLogin';
 
 const app = express();
 
