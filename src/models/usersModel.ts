@@ -14,6 +14,16 @@ const userModel = {
     return { id: insertId, ...user };
   },
 
+  getByUsername: async (username: string): Promise<User | null> => {
+    const query = 'SELECT * FROM Trybesmith.Users WHERE username = ?';
+    const values = [username];
+  
+    const [data] = await connection.execute(query, values);
+    const [user] = data as User[];
+  
+    return user || null;
+  },
+
 };
 
 export default userModel;
