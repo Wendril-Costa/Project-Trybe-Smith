@@ -18,7 +18,7 @@ export default function validateUsername(
       .json({ message: '"username" must be a string' });
   }
 
-  if (username.length < 2) {
+  if (username.length < 3) {
     return res.status(StatusCodes.UNPROCESSABLE_ENTITY)
       .json({ message: '"username" length must be at least 3 characters long' });
   }

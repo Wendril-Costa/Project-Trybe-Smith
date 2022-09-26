@@ -9,7 +9,7 @@ export default function validateLevel(
 ) {
   const { level } = req.body as User;
 
-  if (!level) {
+  if (level === undefined) {
     return res.status(StatusCodes.BAD_REQUEST)
       .json({ message: '"level" is required' });
   }
@@ -18,7 +18,7 @@ export default function validateLevel(
       .json({ message: '"level" must be a number' });
   }
 
-  if (level < 0) {
+  if (level < 1) {
     return res.status(StatusCodes.UNPROCESSABLE_ENTITY)
       .json({ message: '"level" must be greater than or equal to 1' });
   }

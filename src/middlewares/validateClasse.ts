@@ -18,7 +18,7 @@ export default function validateClasse(
       .json({ message: '"classe" must be a string' });
   }
 
-  if (classe.length < 2) {
+  if (classe.length < 3) {
     return res.status(StatusCodes.UNPROCESSABLE_ENTITY)
       .json({ message: '"classe" length must be at least 3 characters long' });
   }
