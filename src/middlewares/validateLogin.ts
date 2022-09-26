@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import Login from '../interfaces/Login';
-// import CustomError from './CustomError';
 
 export default function validateBody(
   req: Request,
