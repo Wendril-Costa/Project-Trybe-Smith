@@ -6,7 +6,7 @@ import orderController from './controllers/orderController';
 import loginController from './controllers/loginController';
 import validateLogin from './middlewares/validateLogin';
 import validateName from './middlewares/validateName';
-// import validateAmount from './middlewares/validateAmount';
+import validateAmount from './middlewares/validateAmount';
 
 const app = express();
 
