@@ -4,9 +4,9 @@ import userService from '../services/userService';
 
 const userController = {
   create: async (req: Request, res: Response) => {
-    const product = req.body;
+    const user = req.body;
     
-    const productCreated = await userService.create(product);
+    const productCreated = await userService.create(user);
 
     return res.status(StatusCodes.CREATED).json(productCreated);
   },
