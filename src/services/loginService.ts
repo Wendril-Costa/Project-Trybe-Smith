@@ -1,6 +1,5 @@
 import Login from '../interfaces/Login';
 import userModel from '../models/usersModel';
-
 import jwtService from './jwtService';
 
 const loginService = {
@@ -10,11 +9,13 @@ const loginService = {
     }
     
     const loginData = await userModel.getByUsername(username);
+
     if (!loginData || loginData.password !== password) {
       return { message: 'Username or password invalid' };
     }
    
     const token = jwtService.generateTokenLogin(loginData);
+
     return { token };
   },
 

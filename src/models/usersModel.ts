@@ -5,23 +5,33 @@ import connection from './connection';
 const userModel = {
   create: async (user: User): Promise<User> => {
     const { username, classe, level, password } = user;
-    const result = await connection.execute<ResultSetHeader>(
-      'INSERT INTO Trybesmith.Users (username, classe, level, password) VALUES (?, ?, ?, ?)',
-      [username, classe, level, password],
-    );
-    const [dataInserted] = result;
-    const { insertId } = dataInserted;
-    return { id: insertId, ...user };
+
+    const [dataInserted] = await connection.execute<ResultSetHeader>(`
+      INSERT INTO Trybesmith.Users (username, classe, level, password)
+      VALUES (?, ?, ?, ?)
+    `, [username, classe, level, password]);
+
+    const { insertId: id } = dataInserted;
+    
+    return { id, ...user } as User;
   },
 
-  getByUsername: async (username: string): Promise<User | null> => {
-    const query = 'SELECT * FROM Trybesmith.Users WHERE username = ?';
-    const values = [username];
-  
-    const [data] = await connection.execute(query, values);
+  getByUsername: async (username: string): Promise<User> => {
+    const [data] = await connection.execute(`
+    SELECT * FROM Trybesmith.Users WHERE username = ?`, [username]);
+
     const [user] = data as User[];
   
-    return user || null;
+    return user;
+  },
+
+  getByUserId: async (userId: number) => {
+    const [data] = await connection.execute(`
+    SELECT * FROM Trybesmith.Users WHERE username = ?`, [userId]);
+    
+    const [user] = data as User[];
+  
+    return user;
   },
 
 };
